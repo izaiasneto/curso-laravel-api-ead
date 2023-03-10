@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ReplySupportResource extends JsonResource
@@ -16,8 +17,9 @@ class ReplySupportResource extends JsonResource
     {
         return [
             'description' => $this->description,
-            'support' => new SupportResource($this->support),
+            'support' => new SupportResource($this->whenLoaded('supports')),
             'user' => new UserResource($this->user),
+            'date' => Carbon::make($this->created_at)->format('Y-m-d H:i:s'),
         ];
     }
 }

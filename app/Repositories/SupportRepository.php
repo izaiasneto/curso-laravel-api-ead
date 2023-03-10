@@ -45,8 +45,12 @@ class SupportRepository
                             $query->where('user_id', $user->id);
                         }
                     })
-                    ->orderBy('updated_at')
-                    ->get();
+                    ->with(array('replies' => function($query) {
+                        $query->orderBy('created_at');
+                    }))
+                    ->orderBy('created_at')
+                    ->paginate(5);
+                    
     }
 
     public function createNewSupport(array $data): Support

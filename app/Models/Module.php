@@ -20,4 +20,9 @@ class Module extends Model
     {
         return $this->belongTo(Course::class);
     }
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
 }
